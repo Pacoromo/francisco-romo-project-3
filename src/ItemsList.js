@@ -6,7 +6,7 @@ import { getDatabase, ref, push, onValue, remove } from "firebase/database";
 
 
 function ItemsList(props) {
-
+    console.log("The ItemsList Component just rendered!");
     //This state will track the items from our db
     const [items, setItems] = useState([]);
 
@@ -30,7 +30,6 @@ function ItemsList(props) {
 
             //store the returned data as variable
             const data = response.val();
-            console.log("this is the new data", data);
             //Set the user name
             setName(data.name)
             //loop through the returned object
@@ -38,8 +37,6 @@ function ItemsList(props) {
                 newState.push({ key: key, item: data.items[key] });
             }
             setItems(newState);
-            console.log("this is the new state", newState);
-            // console.log("This is the new item", data.items);
         });
     }, [props.node]);
 
@@ -54,8 +51,7 @@ function ItemsList(props) {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        console.log(userInput);
-        //New item Variable
+        //New item variable
         const newItem = {
             name: userInput,
             qty: 1,
@@ -91,7 +87,7 @@ function ItemsList(props) {
             </form>
             <ol>
                 {items.map((item) => {
-                    const {key, name = item.item.name, qty = item.item.qty, state = item.item.state} = item
+                    const { key, name = item.item.name, qty = item.item.qty, state = item.item.state } = item
                     return (
                         <li key={key}>
                             <p>{name}</p>

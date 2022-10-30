@@ -39,7 +39,7 @@ function App(props) {
           }
           setAllUsers(users);
         } else {
-          console.log("No data available");
+          alert("Database not available. Please try again later");
         }
       })
       .catch((error) => {
@@ -49,7 +49,6 @@ function App(props) {
 
   //A function to pass down the node data from Header
   const setUser = (node) => {
-    console.log("this is the new node", node);
     setUserFoundNode(node);
   };
 

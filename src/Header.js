@@ -29,7 +29,7 @@ function Header(props) {
             setUsersFound([]);
             props.setUser(null);
         }
-        setUserFound(false);
+        // setUserFound(false);
         setUserNameInput(e.target.value);
         setPinInput("");
         setBtnVisible(false);
@@ -43,7 +43,7 @@ function Header(props) {
             props.setUser(pinInArray[0].node);
         } else {
             setUserFound(false);
-            // props.setUser(null);
+            props.setUser(null);
         }
 
         if (userNameInput !== "" && e.target.value !== "") {
@@ -71,8 +71,6 @@ function Header(props) {
         const database = getDatabase(firebaseConfig);
         const databaseRef = ref(database);
         push(databaseRef, newUserObj);
-        setUserFound(true);
-        setBtnVisible(false);
 
         //listen for new information from our database
         onValue(
@@ -82,8 +80,6 @@ function Header(props) {
                 const newState = [];
                 //store the returned data as variable
                 const data = response.val();
-                console.log("New data avalable", data);
-
                 //loop through the returned object
                 for (const key in data) {
                     newState.push({
@@ -98,8 +94,16 @@ function Header(props) {
                 const newUser = newState.filter(
                     (user) => user.email === userNameInput && user.pin === pinInput
                 );
-                //Send it to App Components
+                //Send node to App Component
                 props.setUser(newUser[0].node);
+                //Send it to new users found
+                const usersFoundCopy = [...usersFound];
+                usersFoundCopy.push(newUser[0]);
+                setUsersFound(usersFoundCopy);
+                //Clear the input and update states
+                setNameInput("");
+                setUserFound(true);
+                setBtnVisible(false);
             },
             { onlyOnce: true }
         );
