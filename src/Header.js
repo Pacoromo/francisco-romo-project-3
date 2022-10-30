@@ -1,6 +1,6 @@
 import firebaseConfig from "./firebase";
 import { getDatabase, push, ref, onValue } from "firebase/database";
-import { useState} from "react";
+import { useState } from "react";
 
 function Header(props) {
     console.log("The Header Component just rendered!");
@@ -43,7 +43,7 @@ function Header(props) {
             props.setUser(pinInArray[0].node);
         } else {
             setUserFound(false);
-            props.setUser(null);
+            // props.setUser(null);
         }
 
         if (userNameInput !== "" && e.target.value !== "") {
@@ -71,8 +71,8 @@ function Header(props) {
         const database = getDatabase(firebaseConfig);
         const databaseRef = ref(database);
         push(databaseRef, newUserObj);
-        // setUserFound(true);
-        // setBtnVisible(false);        
+        setUserFound(true);
+        setBtnVisible(false);
 
         //listen for new information from our database
         onValue(
