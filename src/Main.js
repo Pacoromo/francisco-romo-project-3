@@ -5,7 +5,7 @@ function Main(props) {
     // console.log("This is the node", props.node);
     return (
         props.node
-            ? <ItemsList node={props.node}/>
+            ? <ItemsList userNode={props.node}/>
             : <p>Back to basics</p>
     )
 }

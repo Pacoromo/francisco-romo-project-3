@@ -1,9 +1,7 @@
 import firebaseConfig from "./firebase";
 import { useState, useEffect } from "react";
-import { getDatabase, ref, push, onValue, remove } from "firebase/database";
-
-
-
+import { getDatabase, onValue, ref, push } from "firebase/database";
+import ItemLi from "./ItemLi";
 
 function ItemsList(props) {
     console.log("The ItemsList Component just rendered!");
@@ -21,7 +19,7 @@ function ItemsList(props) {
         const database = getDatabase(firebaseConfig);
 
         //create a variable that makes reference to our user
-        const databaseRef = ref(database, props.node);
+        const databaseRef = ref(database, props.userNode);
 
         //grabbing the information from our database
         onValue(databaseRef, (response) => {
@@ -38,7 +36,7 @@ function ItemsList(props) {
             }
             setItems(newState);
         });
-    }, [props.node]);
+    }, [props.userNode]);
 
 
 
@@ -59,7 +57,7 @@ function ItemsList(props) {
         }
         //Push the information to firebase
         const database = getDatabase(firebaseConfig);
-        const databaseRef = ref(database, props.node + '/items');
+        const databaseRef = ref(database, props.userNode + '/items');
         push(databaseRef, newItem);
         setUserInput("");
     };
@@ -75,8 +73,8 @@ function ItemsList(props) {
     return (
         <div className="form-and-list-container">
             <p>{name} This are your items:</p>
-            <form action="submit">
-                <label htmlFor="newiTem">Add a new item to your list</label>
+            <form action="submit" className="add-item-form">
+                <label htmlFor="newItem">Add a new item to your list</label>
                 <input
                     type="text"
                     id="newItem"
@@ -86,17 +84,7 @@ function ItemsList(props) {
                 <button onClick={handleFormSubmit}>Add Item</button>
             </form>
             <ol>
-                {items.map((item) => {
-                    const { key, name = item.item.name, qty = item.item.qty, state = item.item.state } = item
-                    return (
-                        <li key={key}>
-                            <p>{name}</p>
-                            <p>Qty: {qty}</p>
-                            <p>{state.toString()}</p>
-                        </li>
-                    );
-                })}
-
+                <ItemLi items={items} userNode={props.userNode} />
             </ol>
         </div>
     )
