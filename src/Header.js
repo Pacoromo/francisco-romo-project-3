@@ -9,6 +9,7 @@ function Header(props) {
     const [userNameInput, setUserNameInput] = useState("");
     const [pinInput, setPinInput] = useState("");
     const [nameInput, setNameInput] = useState("");
+    
     //Set a state variable to check if any username matches
     const [usersFound, setUsersFound] = useState([]);
 
@@ -19,7 +20,7 @@ function Header(props) {
     const [btnVisible, setBtnVisible] = useState(false);
 
     //function that takes care of the name input logic
-    const handleUserNameChange = (e) => {
+    const handleUserNameInput = (e) => {
         const usersInArray = props.users.filter(
             (user) => user.email === e.target.value.toLowerCase()
         );
@@ -30,13 +31,13 @@ function Header(props) {
             props.setUser(null);
         }
         // setUserFound(false);
-        setUserNameInput(e.target.value);
+        setUserNameInput(e.target.value.trim());
         setPinInput("");
         setBtnVisible(false);
     };
 
     //function that takes care of the pin input logic
-    const handlePinChange = (e) => {
+    const handlePinInput = (e) => {
         const pinInArray = usersFound.filter((user) => user.pin === e.target.value);
         if (pinInArray.length) {
             setUserFound(true);
@@ -52,16 +53,17 @@ function Header(props) {
             setBtnVisible(false);
         }
 
-        setPinInput(e.target.value);
+        setPinInput(e.target.value.trim());
     };
 
     //Function to handle the name input
-    const handleNameChange = (e) => {
+    const handleNewUserInput = (e) => {
         setNameInput(e.target.value);
     };
 
     //A function that creates a new user
-    const handleNewUser = (e) => {
+    const handleNewUserForm = (e) => {
+        e.preventDefault();
         const newUserObj = {
             email: userNameInput.toLowerCase(),
             pin: pinInput,
@@ -110,48 +112,54 @@ function Header(props) {
     };
 
     return (
-        <header>
+        <header className="header">
             <form className="user-info-form">
-                <label htmlFor="mail" className="sr-only">
+                <label htmlFor="mail-input" className="sr-only">
                     email
                 </label>
                 <input
+                    className="mail-input"
                     type="email"
                     name="mail"
-                    id="mail"
+                    id="mail-input"
                     placeholder="email"
-                    onChange={handleUserNameChange}
+                    onChange={handleUserNameInput}
                     value={userNameInput}
                 />
-                <label htmlFor="pin" className="sr-only">
+                <label htmlFor="pin-input" className="sr-only">
                     PIN
                 </label>
                 <input
+                    className="pin-input"
                     type="text"
                     name="pin"
-                    id="pin"
+                    id="pin-input"
                     placeholder="PIN"
-                    onChange={handlePinChange}
+                    onChange={handlePinInput}
                     value={pinInput}
+                    disabled={userNameInput === "" ? true : false}
                 />
                 {userFound ? <span>✅</span> : null}
             </form>
             {btnVisible && !userFound ? (
-                <>
+                <div className="user-not-found-container">
                     <p>User has not been found</p>
-                    <label htmlFor="name" className="sr-only">
-                        Name
-                    </label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Name"
-                        onChange={handleNameChange}
-                        value={nameInput}
-                    />
-                    <button onClick={handleNewUser}>Create New User?</button>
-                </>
+                    <form action="submit" className="new-user-form">
+                        <label htmlFor="name" className="sr-only">
+                            Name
+                        </label>
+                        <input
+                            className="new-user-input"
+                            type="text"
+                            name="name"
+                            id="name"
+                            placeholder="Name"
+                            onChange={handleNewUserInput}
+                            value={nameInput}
+                        />
+                        <button onClick={handleNewUserForm}>Create New User?</button>
+                    </form>
+                </div>
             ) : null}
         </header>
     );

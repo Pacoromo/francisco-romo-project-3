@@ -1,54 +1,58 @@
-//import firebaseConfig from "./firebase"
-//import { getDatabase, push, ref, onValue, remove } from "firebase/database";
-//import { useState, useEffect } from "react";
+import firebaseConfig from "./firebase";
+import { getDatabase, ref, remove } from "firebase/database";
 import Checkbox from "./Checkbox";
-import Qtyinput from "./Qtyinput";
+import QtyInput from "./Qtyinput";
 
 function ItemLi(props) {
     console.log("The ItemsLi Component just rendered!");
 
-    //Set the items quantity
-    // [quantity, setQuantity] = useState(1);
+    //This will remove the book from the list
 
-    //Handle the active state of an item 
-    //
+    const handleRemoveItem = (itemNode) => {
+        const database = getDatabase(firebaseConfig);
+        const databaseRef = ref(database, props.userNode + "/items/" + itemNode);
+        remove(databaseRef);
+    };
 
     return (
         <div className="list-item-container">
             {props.items.map((item) => {
-                const { key = item, name = item.item.name, qty = item.item.qty, state = item.item.state } = item
+                const {
+                    key = item,
+                    name = item.item.name,
+                    qty = item.item.qty,
+                    state = item.item.state,
+                } = item;
                 return (
-                    <li key={key}>
-                        <Checkbox userNode={props.userNode} itemNode={key} name={name} state={state} />
-                        <Qtyinput userNode={props.userNode} itemNode={key} name={name} qty={qty} />
+                    <li className="item-li" key={key}>
+                        <QtyInput
+                            userNode={props.userNode}
+                            itemNode={key}
+                            name={name}
+                            qty={qty}
+                        />
+                        <Checkbox
+                            userNode={props.userNode}
+                            itemNode={key}
+                            name={name}
+                            state={state}
+                        />
+                        <button
+                            className="remove-item-btn"
+                            onClick={() => {
+                                handleRemoveItem(key);
+                            }}
+                        >
+                            ✖️
+                        </button>
                     </li>
                 );
             })}
         </div>
-    )
+    );
 }
 
-
 export default ItemLi;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 {items.map((item) => {

@@ -1,10 +1,6 @@
 import firebaseConfig from "./firebase";
 import { useState, useEffect } from "react";
-import {
-    getDatabase,
-    ref,
-    update
-} from "firebase/database";
+import { getDatabase, ref, update } from "firebase/database";
 
 function Checkbox(props) {
     console.log("The Checkbox Component just rendered!");
@@ -14,32 +10,41 @@ function Checkbox(props) {
 
     //update the state of checkbox when database changes
     useEffect(() => {
-        setActiveBox(props.state)
-    }, [props.state])
-
+        setActiveBox(props.state);
+    }, [props.state]);
 
     //Handle the state of chechbox;
     const handleStateOfItem = () => {
         const database = getDatabase(firebaseConfig);
         //create a variable that makes reference to our item status
-        const databaseRef = ref(database, props.userNode + "/items/" + props.itemNode);
+        const databaseRef = ref(
+            database,
+            props.userNode + "/items/" + props.itemNode
+        );
         //update the information from our database
         update(databaseRef, { state: !activeBox });
     };
 
     return (
-        <div className="checkbox-container">
-            <input
-                type="checkbox"
-                name={props.name}
-                id={props.itemNode + "checkbox"}
-                className="item-checkbox"
-                onChange={handleStateOfItem}
-                checked={activeBox}
-            />
-            <label htmlFor={props.itemNode + "checkbox"} className={`item-label ${activeBox ? "active" : ""}`}>
-                {props.name}
-            </label>
+        <div className="checkbox-label-container">
+            <div className="label-container">
+                <label
+                    className={`item-label ${activeBox ? "item-checked" : ""}`}
+                    htmlFor={props.itemNode + "checkbox"}
+                >
+                    {props.name}
+                </label>
+            </div>
+            <div className="checkbox-container">
+                <input
+                    className="item-checkbox"
+                    type="checkbox"
+                    name={props.name}
+                    id={props.itemNode + "checkbox"}
+                    onChange={handleStateOfItem}
+                    checked={activeBox}
+                />
+            </div>
         </div>
     );
 }

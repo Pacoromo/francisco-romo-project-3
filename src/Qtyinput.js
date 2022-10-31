@@ -2,7 +2,7 @@ import firebaseConfig from "./firebase";
 import { useState, useEffect } from "react";
 import { getDatabase, ref, update } from "firebase/database";
 
-function Qtyinput(props) {
+function QtyInput(props) {
     console.log("The Quantity input Component just rendered!");
 
     //Set the state of the qty input
@@ -26,21 +26,25 @@ function Qtyinput(props) {
     };
 
     return (
-        <div className="qty-input-container">
-            <input
-                type="number"
-                name={props.name + "qty"}
-                id={props.itemNode + "qty"}
-                className="qty-input"
-                min={1}
-                value={qtyInput}
-                onChange={handleChangeOnQtyInput}
-            />
-            <label htmlFor={props.itemsNode + "qty"} className="sr-only">
-                Quantity
-            </label>
+        <div className="qty-input-label-container">
+            <div className="input-container">
+                <input
+                    type="number"
+                    name={props.name + "qty"}
+                    id={props.itemNode + "qty"}
+                    className="qty-input"
+                    min={1}
+                    value={qtyInput}
+                    onChange={handleChangeOnQtyInput}
+                />
+            </div>
+            <div className="label-container">
+                <label htmlFor={props.itemsNode + "qty"} className="sr-only">
+                    Quantity
+                </label>
+            </div>
         </div>
     );
 }
 
-export default Qtyinput;
+export default QtyInput;

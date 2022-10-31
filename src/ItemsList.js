@@ -8,10 +8,10 @@ function ItemsList(props) {
     //This state will track the items from our db
     const [items, setItems] = useState([]);
 
-    //Track the name on our dtabase
+    //Track the user name from our dtabase
     const [name, setName] = useState("");
 
-    //Track user inputs from the form
+    //Track the new item input
     const [userInput, setUserInput] = useState("");
 
     useEffect(() => {
@@ -25,11 +25,10 @@ function ItemsList(props) {
         onValue(databaseRef, (response) => {
             //Creating an array to store our data
             const newState = [];
-
             //store the returned data as variable
             const data = response.val();
             //Set the user name
-            setName(data.name)
+            setName(data.name);
             //loop through the returned object
             for (const key in data.items) {
                 newState.push({ key: key, item: data.items[key] });
@@ -38,60 +37,55 @@ function ItemsList(props) {
         });
     }, [props.userNode]);
 
-
-
-    //Creating a function that takes care of the update input logic
+    //Take care of the update input logic
     const handleInputChange = (e) => {
         setUserInput(e.target.value);
     };
 
-    // //Creating a function that submits the value to firebase
-
+    //Submit the value to firebase
     const handleFormSubmit = (e) => {
         e.preventDefault();
         //New item variable
         const newItem = {
             name: userInput,
             qty: 1,
-            state: true
-        }
+            state: false,
+        };
         //Push the information to firebase
         const database = getDatabase(firebaseConfig);
-        const databaseRef = ref(database, props.userNode + '/items');
+        const databaseRef = ref(database, props.userNode + "/items");
         push(databaseRef, newItem);
         setUserInput("");
     };
 
-    // //This will remove the book from the list
-
-    // const handleRemoveItem = (bookId) => {
-    //     const database = getDatabase(firebaseConfig);
-    //     const databaseRef = ref(database, `/${bookId}`)
-    //     remove(databaseRef);
-    // };
-
     return (
         <div className="form-and-list-container">
-            <p>{name} This are your items:</p>
+            <h2 className="items-list-heading">{name} This are your items:</h2>
             <form action="submit" className="add-item-form">
                 <label htmlFor="newItem">Add a new item to your list</label>
                 <input
+                    className="new-item-input"
                     type="text"
                     id="newItem"
                     onChange={handleInputChange}
                     value={userInput}
                 />
-                <button onClick={handleFormSubmit}>Add Item</button>
+                <button
+                    className="new-item-btn"
+                    onClick={handleFormSubmit}
+                    disabled={userInput === "" ? true : false}
+                >
+                    Add Item
+                </button>
             </form>
-            <ol>
+            <ol className="items-list">
                 <ItemLi items={items} userNode={props.userNode} />
             </ol>
         </div>
-    )
+    );
 }
 
-export default ItemsList
-
+export default ItemsList;
 
 /** 
  * 
