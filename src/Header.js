@@ -9,20 +9,24 @@ function Header(props) {
     const [userNameInput, setUserNameInput] = useState("");
     const [pinInput, setPinInput] = useState("");
     const [nameInput, setNameInput] = useState("");
-    
+
     //Set a state variable to check if any username matches
     const [usersFound, setUsersFound] = useState([]);
+
+    //States  to see if email, pin and name inputs are valid
+    const [validEmail, setValidEmail] = useState(false);
+    const [validPin, setValidPin] = useState(false);
+    const [validName, setValidName] = useState(false);
 
     //Set a state variable to check if user exists
     const [userFound, setUserFound] = useState(false);
 
-    //Set a state to see if add user button is visible
-    const [btnVisible, setBtnVisible] = useState(false);
-
     //function that takes care of the name input logic
     const handleUserNameInput = (e) => {
+        const inputValue = e.target.value.toLowerCase();
+        //Find matches in databbase
         const usersInArray = props.users.filter(
-            (user) => user.email === e.target.value.toLowerCase()
+            (user) => user.email === inputValue
         );
         if (usersInArray.length > 0) {
             setUsersFound(usersInArray);
@@ -30,15 +34,20 @@ function Header(props) {
             setUsersFound([]);
             props.setUser(null);
         }
-        // setUserFound(false);
-        setUserNameInput(e.target.value.trim());
+
+        //validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setValidEmail(emailRegex.test(inputValue));
+
+        //Clear pin input when using and set the new state
         setPinInput("");
-        setBtnVisible(false);
+        setUserNameInput(inputValue);
     };
 
     //function that takes care of the pin input logic
     const handlePinInput = (e) => {
-        const pinInArray = usersFound.filter((user) => user.pin === e.target.value);
+        const inputValue = e.target.value;
+        const pinInArray = usersFound.filter((user) => user.pin === inputValue);
         if (pinInArray.length) {
             setUserFound(true);
             props.setUser(pinInArray[0].node);
@@ -47,18 +56,25 @@ function Header(props) {
             props.setUser(null);
         }
 
-        if (userNameInput !== "" && e.target.value !== "") {
-            setBtnVisible(true);
-        } else {
-            setBtnVisible(false);
-        }
+        //validate PIN format
+        const pinRegex = /^[0-9]{4}$/;
+        const pinValid = pinRegex.test(inputValue);
+        setValidPin(pinValid);
 
-        setPinInput(e.target.value.trim());
+        //Update input
+        setPinInput(inputValue);
     };
 
     //Function to handle the name input
     const handleNewUserInput = (e) => {
-        setNameInput(e.target.value);
+        const inputValue = e.target.value;
+
+        //validate name format
+        const nameRegex = /^[a-z ,.'-]+$/i;
+        setValidName(nameRegex.test(inputValue));
+
+        //Update input
+        setNameInput(inputValue);
     };
 
     //A function that creates a new user
@@ -105,7 +121,6 @@ function Header(props) {
                 //Clear the input and update states
                 setNameInput("");
                 setUserFound(true);
-                setBtnVisible(false);
             },
             { onlyOnce: true }
         );
@@ -113,7 +128,12 @@ function Header(props) {
 
     return (
         <header className="header">
+            <h1>My Shopping</h1>
             <form className="user-info-form">
+
+                {validEmail || !userNameInput ? null : (
+                    <p className="mail-message">Please enter a valid email</p>
+                )}
                 <label htmlFor="mail-input" className="sr-only">
                     email
                 </label>
@@ -126,24 +146,41 @@ function Header(props) {
                     onChange={handleUserNameInput}
                     value={userNameInput}
                 />
-                <label htmlFor="pin-input" className="sr-only">
-                    PIN
-                </label>
-                <input
-                    className="pin-input"
-                    type="text"
-                    name="pin"
-                    id="pin-input"
-                    placeholder="PIN"
-                    onChange={handlePinInput}
-                    value={pinInput}
-                    disabled={userNameInput === "" ? true : false}
-                />
-                {userFound ? <span>✅</span> : null}
+
+                <div className="pin-group">
+                    <label htmlFor="pin-input" className="sr-only">
+                        Personal Identification Number (4 digits)
+                    </label>
+                    <input
+                        className="pin-input"
+                        type="password"
+                        inputmode="numeric"
+                        name="pin"
+                        id="pin-input"
+                        placeholder="pin"
+                        onChange={handlePinInput}
+                        value={pinInput}
+                        disabled={userNameInput === "" || !validEmail ? true : false}
+                        maxLength="4"
+                    />
+                    {validPin || !pinInput ? null : (
+                        <p className="pin-message">Enter a 4 digit PIN</p>
+                    )}
+                    {userFound ? <div className="login-icon-container"><img className="login-icon" src="./assets/icons/checkmark.svg" alt="logged in icon" /></div> : null}
+                </div>
             </form>
-            {btnVisible && !userFound ? (
-                <div className="user-not-found-container">
+
+            {userFound ? null : (
+                <p className="login-legend">log in / New account</p>
+            )}
+
+            {validPin && !userFound ? (
+                <aside className="user-not-found-container">
                     <p>User has not been found</p>
+                    <p>Do you want to create a new user?</p>
+                    {validName || !nameInput ? null : (
+                        <p className="email-input-message">Please enter a Valid Name</p>
+                    )}
                     <form action="submit" className="new-user-form">
                         <label htmlFor="name" className="sr-only">
                             Name
@@ -157,10 +194,17 @@ function Header(props) {
                             onChange={handleNewUserInput}
                             value={nameInput}
                         />
-                        <button onClick={handleNewUserForm}>Create New User?</button>
+                        <button
+                            onClick={handleNewUserForm}
+                            disabled={nameInput === "" || !validName ? true : false}
+                        >
+                            Submit
+                        </button>
                     </form>
-                </div>
+                </aside>
             ) : null}
+
+
         </header>
     );
 }

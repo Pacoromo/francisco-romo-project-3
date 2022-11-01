@@ -1,0 +1,9 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Mixin usage: 
+//@include font-face(family-name, file-name, weight)
+
+@include font-face(Roboto, Roboto-Regular, 400);
+@include font-face(Roboto, Roboto-Medium, 500);
+@include font-face(Pacifico, Pacifico-Regular, 400);

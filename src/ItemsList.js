@@ -12,7 +12,7 @@ function ItemsList(props) {
     const [name, setName] = useState("");
 
     //Track the new item input
-    const [userInput, setUserInput] = useState("");
+    const [newItemInput, setNewItemInput] = useState("");
 
     useEffect(() => {
         //create a variable that will hold on to our database values
@@ -37,9 +37,9 @@ function ItemsList(props) {
         });
     }, [props.userNode]);
 
-    //Take care of the update input logic
+    //Take care of the update new item input logic
     const handleInputChange = (e) => {
-        setUserInput(e.target.value);
+        setNewItemInput(e.target.value);
     };
 
     //Submit the value to firebase
@@ -47,7 +47,7 @@ function ItemsList(props) {
         e.preventDefault();
         //New item variable
         const newItem = {
-            name: userInput,
+            name: newItemInput,
             qty: 1,
             state: false,
         };
@@ -55,63 +55,39 @@ function ItemsList(props) {
         const database = getDatabase(firebaseConfig);
         const databaseRef = ref(database, props.userNode + "/items");
         push(databaseRef, newItem);
-        setUserInput("");
+        setNewItemInput("");
     };
 
     return (
-        <div className="form-and-list-container">
-            <h2 className="items-list-heading">{name} This are your items:</h2>
-            <form action="submit" className="add-item-form">
-                <label htmlFor="newItem">Add a new item to your list</label>
-                <input
-                    className="new-item-input"
-                    type="text"
-                    id="newItem"
-                    onChange={handleInputChange}
-                    value={userInput}
-                />
-                <button
-                    className="new-item-btn"
-                    onClick={handleFormSubmit}
-                    disabled={userInput === "" ? true : false}
-                >
-                    Add Item
-                </button>
-            </form>
-            <ol className="items-list">
-                <ItemLi items={items} userNode={props.userNode} />
-            </ol>
-        </div>
+        <section className="items-section">
+            <div className="form-container">
+                <h2 className="items-list-heading">Hi {name}! This are your items:</h2>
+                <form action="submit" className="add-item-form">
+                    <label htmlFor="newItem">Add a new item to your list</label>
+                    <input
+                        className="new-item-input"
+                        type="text"
+                        id="newItem"
+                        onChange={handleInputChange}
+                        value={newItemInput}
+                    />
+                    <button
+                        className="new-item-btn"
+                        onClick={handleFormSubmit}
+                        disabled={newItemInput === "" ? true : false}
+                    >
+                        Add Item
+                    </button>
+                </form>
+            </div>
+
+            <div className="list-container">
+                <ol className="items-list">
+                    <ItemLi items={items} userNode={props.userNode} />
+                </ol>
+            </div>
+        </section>
     );
 }
 
 export default ItemsList;
-
-/** 
- * 
- * <form action="submit">
-                <label htmlFor="newiTem">Add a book to your bookshelf</label>
-                <input
-                    type="text"
-                    id="newItem"
-                    onChange={handleInputChange}
-                    value={userInput}
-                />
-                <button onClick={handleFormSubmit}>Add Item</button>
-            </form>
-            <ul>
-                {items.map((book, index) => {
-                    return (
-                        <li key={props.node + index}>
-                            <p>{book.name}</p>
-                            {/* I want to be able to delete the book */
-/*
-<button onClick={() => { handleRemoveItem(book.key) }}>Remove</button>
-</li>
-);
-})}
-
-</ul>
-* 
-* 
-* **/

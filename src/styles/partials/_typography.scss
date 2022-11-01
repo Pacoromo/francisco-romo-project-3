@@ -1,0 +1,22 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+// Font Styles
+
+// Usage:
+//@include font-setup(family, size, weight, color, line height, letter-spacing, text-transform, text-align)
+
+
+//Base Font Size
+
+html {
+    font-size: 125%; //1 Rem = 20px
+}
+
+body {
+    @include font-setup($primaryFont, $baseFontSize, 500, $white)
+}
+
+h1 {
+    @include font-setup($headingFont, 2rem, 400, $white, 2, 1px, null, center)
+}

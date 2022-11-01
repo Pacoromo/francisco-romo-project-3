@@ -1,11 +1,11 @@
-import "./styles/styles.scss";
-
 import firebaseConfig from "./firebase";
 import { getDatabase, ref, get } from "firebase/database";
 import { useState, useEffect } from "react";
+import "./styles/styles.scss";
 
 import Header from "./Header";
 import Main from "./Main";
+import Footer from "./Footer";
 
 function App(props) {
   console.log("The App component just rendered!");
@@ -23,7 +23,7 @@ function App(props) {
     const databaseRef = ref(database);
     //array of names, pins and nodes of all users
     const users = [];
-    //grabbing the information from our database
+    //grabbing a snapshot from our database
     get(databaseRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
@@ -47,16 +47,18 @@ function App(props) {
       });
   }, []);
 
-  //A function to pass down the node data from Header
+  //A function to pass down the node value from Header
   const setUser = (node) => {
     setUserFoundNode(node);
   };
 
   return (
     <div className="App">
-      <h1>My Shopping List</h1>
-      <Header users={allUsers} setUser={setUser} setAllUsers={setAllUsers} />
-      <Main node={userFoundNode} />
+      <div className="wrapper">
+        <Header users={allUsers} setUser={setUser} setAllUsers={setAllUsers} />
+        <Main node={userFoundNode} />
+        <Footer />
+      </div>
     </div>
   );
 }

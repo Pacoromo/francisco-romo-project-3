@@ -1,0 +1,64 @@
+@use "./variables" as *;
+
+header {
+    h1 {
+        margin: .6em 0;
+    }
+
+    form {
+        input {
+            color: $white;
+            background-color: transparent;
+            border: 2px solid $white;
+            border-radius: $borderRadius;
+            margin: 10px 0;
+            padding: .2em .5em;
+
+            &[name="mail"] {
+                width: 100%;
+            }
+
+            &[name="pin"] {
+                width: 7rem;
+                text-align: center;
+            }
+
+            &:focus,
+            &:focus-visible{
+                outline: none;
+                border-color: $accentColour ;
+            }
+        }
+    }
+
+
+
+
+
+    .pin-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .pin-message {
+        color: $accentColour;
+        margin-left: 1.5em;
+        font-size: .7rem;
+    }
+
+    .login-icon-container {
+        margin-left: 1em;
+    }
+
+    .login-icon {
+        width: 1em;
+    }
+}
+
+.login-legend {
+    font-size: .6rem;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0;
+}

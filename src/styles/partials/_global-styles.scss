@@ -1,0 +1,87 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+//Stripping Styles
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
+}
+
+ul,
+li,
+figure,
+fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+//elements
+
+a {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    // transition: $transition;
+}
+
+a:hover,
+a:focus {
+    // color: $accentColour;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+//General Styles
+
+html {
+    // scrollbar-color: $slate $navy;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $brownDark;
+}
+
+.wrapper {
+    min-height: 100vh;
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    @include breakpoint(mediumScreen) {
+        width: 80%;
+    }
+}
+
+main {
+    flex: auto;
+}
+
+// section {
+//     scroll-margin-top: 40px;
+//     padding: 60px 0;
+// }
+
+::selection {
+    color: $brownDark;
+    background-color: $accentColour;
+}
