@@ -18,7 +18,11 @@ body {
 }
 
 h1 {
-    @include font-setup($headingFont, 2rem, 400, $accentColour, 2, 1px, null, center)
+    @include font-setup($headingFont, 2rem, 400, $accentColour, 2, 1px, capitalize, center)
+}
+
+h2 {
+    text-transform: capitalize;
 }
 
 .list-item-container {
