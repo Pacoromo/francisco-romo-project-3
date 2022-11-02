@@ -191,7 +191,7 @@ function Header(props) {
             {validPin && !userFound ? (
                 <aside className="user-not-found-container">
                     <p>User has not been found!</p>
-                    <p>Do you want to create a new user?</p>
+                    <p>New user with this email and PIN?</p>
 
                     <form action="submit" className="new-user-form">
                         <div className="name-group">
