@@ -55,7 +55,7 @@ function App(props) {
       <div className="wrapper">
         <Header users={allUsers} setUser={setUserFoundNode} setAllUsers={setAllUsers} setIntro={setShowIntro} />
         <Main node={userFoundNode} intro={showIntro} />
-          <Footer />
+        <Footer />
 
       </div>
     </div>

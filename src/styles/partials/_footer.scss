@@ -1,16 +1,19 @@
 @use "./variables" as *;
 
-footer {    
+footer {
     position: sticky;
     bottom: 0;
     background-color: $brownDark;
     border-top: 1px solid $accentColour;
-    p{
+    box-shadow: 0 -4px 4px $brownDark;
+
+    p {
         text-align: center;
-        font-size: .8rem;
+        font-size: 0.8rem;
     }
+
     img {
         display: inline-block;
-        width: .9em;
+        width: 0.9em;
     }
 }

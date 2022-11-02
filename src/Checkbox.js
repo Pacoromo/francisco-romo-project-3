@@ -27,14 +27,6 @@ function Checkbox(props) {
 
     return (
         <div className="checkbox-label-container">
-            <div className="label-container">
-                <label
-                    className={`item-label ${activeBox ? "item-checked" : ""}`}
-                    htmlFor={props.itemNode + "checkbox"}
-                >
-                    {props.name}
-                </label>
-            </div>
             <div className="checkbox-container">
                 <input
                     className="item-checkbox"
@@ -44,6 +36,14 @@ function Checkbox(props) {
                     onChange={handleStateOfItem}
                     checked={activeBox}
                 />
+            </div>
+            <div className="label-container">
+                <label
+                    className={`item-label ${activeBox ? "item-checked" : ""}`}
+                    htmlFor={props.itemNode + "checkbox"}
+                >
+                    {props.name}
+                </label>
             </div>
         </div>
     );

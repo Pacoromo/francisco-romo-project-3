@@ -22,7 +22,7 @@ function Header(props) {
     const [userFound, setUserFound] = useState(false);
 
     //pass the info to App.js
-    if (validPin && !userFound ) {
+    if (validPin && !userFound) {
         props.setIntro(false)
     } else {
         props.setIntro(true)
@@ -211,7 +211,7 @@ function Header(props) {
                                 value={nameInput}
                             />
                             <button
-                            className="new-user-btn"
+                                className="new-user-btn"
                                 onClick={handleNewUserForm}
                                 disabled={nameInput === "" || !validName ? true : false}
                             >

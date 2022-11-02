@@ -1,3 +1,4 @@
+import closeLogo from "./multiply.svg"
 import firebaseConfig from "./firebase";
 import { getDatabase, ref, remove } from "firebase/database";
 import Checkbox from "./Checkbox";
@@ -25,26 +26,25 @@ function ItemLi(props) {
                 } = item;
                 return (
                     <li className="item-li" key={key}>
-                        <QtyInput
-                            userNode={props.userNode}
-                            itemNode={key}
-                            name={name}
-                            qty={qty}
-                        />
                         <Checkbox
                             userNode={props.userNode}
                             itemNode={key}
                             name={name}
                             state={state}
                         />
+                        <QtyInput
+                            userNode={props.userNode}
+                            itemNode={key}
+                            name={name}
+                            qty={qty}
+                        />
+                        <p>Qty.</p>
                         <button
                             className="remove-item-btn"
                             onClick={() => {
                                 handleRemoveItem(key);
                             }}
-                        >
-                            ✖️
-                        </button>
+                        ><img src={closeLogo} alt="Multiply logo" /> </button>
                     </li>
                 );
             })}

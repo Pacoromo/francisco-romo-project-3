@@ -7,7 +7,7 @@ function ItemsList(props) {
     console.log("The ItemsList Component just rendered!");
     //This state will track the items from our db
     const [items, setItems] = useState([]);
-
+console.log("number", items);
     //Track the user name from our dtabase
     const [name, setName] = useState("");
 
@@ -82,6 +82,7 @@ function ItemsList(props) {
                     >
                         Add
                     </button>
+                    <p className="items-counter">{items.length}</p>
                 </form>
             </div>
 
