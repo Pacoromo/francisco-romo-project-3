@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { getDatabase, ref, update } from "firebase/database";
 
 function QtyInput(props) {
-    console.log("The Quantity input Component just rendered!");
 
     //Set the state of the qty input
     const [qtyInput, setQtyInput] = useState(props.qty);
