@@ -8,9 +8,10 @@ function Main(props) {
             {props.node ? (
                 <ItemsList userNode={props.node} />
             ) : props.intro ? (
-                <div className="intro">
+                <div className="intro-paragraph">
                     <h3>Back to basics</h3>
-                    <p>Hola</p>
+                    <p>A practical shopping list.</p> 
+                    <p>As simple and useful as it should be.</p>
                 </div>
             ) : null}
         </main>

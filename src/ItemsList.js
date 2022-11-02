@@ -61,7 +61,8 @@ function ItemsList(props) {
     return (
         <section className="items-section">
             <div className="form-container">
-                <h2 className="items-list-heading">Hi {name}! This are your items:</h2>
+                <h2 className="items-list-heading">Hi {name}!</h2>
+                <p>This are your items:</p>
                 <form action="submit" className="add-item-form">
                     <label htmlFor="newItem">Add a new item to your list</label>
                     <input

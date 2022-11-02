@@ -18,5 +18,11 @@ body {
 }
 
 h1 {
-    @include font-setup($headingFont, 2rem, 400, $white, 2, 1px, null, center)
+    @include font-setup($headingFont, 2rem, 400, $accentColour, 2, 1px, null, center)
 }
+
+// h3 {
+//     @include font-setup($headingFont, 1.5rem, 400, $white, 2, 1px, null, center)
+// }
+
+

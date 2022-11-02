@@ -59,22 +59,20 @@ body {
     background-color: $brownDark;
 }
 
+
 .wrapper {
-    min-height: 100vh;
     max-width: 650px;
     width: 90%;
     margin: 0 auto;
-
     display: flex;
     flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
     @include breakpoint(mediumScreen) {
         width: 80%;
     }
 }
 
-main {
-    flex: auto;
-}
 
 // section {
 //     scroll-margin-top: 40px;
