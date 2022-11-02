@@ -44,7 +44,7 @@ function App(props) {
         }
       })
       .catch((error) => {
-        console.error(error);
+        alert(error);
       });
   }, []);
 
