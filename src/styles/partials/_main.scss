@@ -1,9 +1,36 @@
-.intro{
-    display: flex;
-    justify-content: center;
-    h3{
-        text-align: center;
-        margin-top: 1.5em;
-    }
+@use "./variables" as *;
+
+main {
+    flex: auto;
 
 }
+
+.intro-paragraph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+
+    h3 {
+        color: $accentColour;
+        margin: 1.5em;
+    }
+
+    p {
+        margin: .5em;
+    }
+}
+
+.form-container {
+    text-align: center;
+    padding: .5em;
+    h2{
+        color: $accentColour;
+    }
+
+    p {
+        margin: .3em;
+    }
+}
+
