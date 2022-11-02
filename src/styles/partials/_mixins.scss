@@ -1,0 +1,95 @@
+// @use "./variables" as *;
+
+// Adapted from some examples found in:
+
+//https://dev.to/alemesa/10-awesome-sass-scss-mixins-5ci2
+//https://www.developerdrive.com/10-best-sass-mixins-for-web-developers/
+
+//Font Face
+
+// Usage:
+//@include font-face(family-name, file-name, weight)
+
+@mixin font-face($family-name, $file-name, $weight: 400) {
+    @font-face {
+        font-family: $family-name;
+        src: url("../../../public/assets/fonts/#{$file-name}.woff2") format("woff2"),
+        url("../../../public/assets/fonts/#{$file-name}.woff") format("woff"),
+        url("../../../public/assets/fonts/#{$file-name}.ttf") format("truetype");
+        font-weight: $weight;
+    }
+}
+
+// Font Styles
+
+// Usage:
+//@include font-setup(family, size, weight, color, line height, letter-spacing, text-transform, text-align)
+
+@mixin font-setup($family, $size: false, $weight: false, $colour: false, $lh: false, $ls: false, $tt: false, $ta: false) {
+    font-family: $family;
+
+    @if $size {
+        font-size: $size;
+    }
+
+    @if $weight {
+        font-weight: $weight;
+    }
+
+    @if $colour {
+        color: $colour;
+    }
+
+    @if $lh {
+        line-height: $lh;
+    }
+
+    @if $ls {
+        letter-spacing: $ls;
+    }
+
+    @if $tt {
+        text-transform: $tt;
+    }
+
+    @if $ta {
+        text-align: $ta;
+    }
+}
+
+//Media queries for mobile first
+
+// Usage:
+//@include breakpoint(largeScreen) {
+//   div {
+//      font-size: 2rem;
+//      line-height: 1.4;
+//   }
+//}
+
+@mixin breakpoint($point) {
+    
+    @if $point ==smallScreen {
+        @media only screen and (min-width: 576px) {
+            @content;
+        }
+    }
+
+    @else if $point ==mediumScreen {
+        @media only screen and (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $point ==largeScreen {
+        @media only screen and (min-width: 992px) {
+            @content;
+        }
+    }
+
+    @else if $point ==xlargeScreen {
+        @media only screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+}

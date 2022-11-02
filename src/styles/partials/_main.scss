@@ -1,0 +1,198 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+main {
+    flex: auto;
+}
+
+.intro-paragraph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+
+    h3 {
+        color: $accentColour;
+        margin: 1.5em;
+    }
+
+    p {
+        margin: 0.5em;
+    }
+}
+
+.items-section {
+    h2 {
+        margin: 1em 0;
+    }
+}
+
+.new-item-form {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    text-align: center;
+    padding: 0.5em;
+    background-color: $brownDark;
+    border-bottom: 1px solid $accentColour;
+    box-shadow: 0 4px 4px $brownDark;
+
+    h2 {
+        color: $accentColour;
+    }
+
+    p {
+        margin: 0.4em;
+    }
+
+    input {
+        color: $white;
+        background-color: transparent;
+        border: 2px solid $white;
+        border-radius: $borderRadius;
+        margin: 0.7em 0;
+        padding: 0.2em 1em;
+        width: 100%;
+        max-width: 20em;
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+            border-color: $accentColour;
+        }
+    }
+
+    .items-counter {
+        position: absolute;
+        bottom: 0.65em;
+        background-color: $accentColour;
+        border-radius: $borderRadius;
+        color: $brownDark;
+        padding: 0.1em 0.4em;
+        margin: 0;
+    }
+
+    .new-item-btn {
+        display: block;
+        margin: 0 auto;
+        border: none;
+        border-radius: $borderRadius;
+        background-color: $accentColour;
+        color: $brownDark;
+        padding: 0.4em 0.6em;
+
+        &:active {
+            color: $accentColour;
+            background-color: transparent;
+            border: 1px solid $accentColour;
+        }
+    }
+}
+
+.list-item-container {
+    overflow: scroll;
+}
+
+.item-li {
+    display: flex;
+    align-items: center;
+    background-color: $greyDark;
+    border-radius: $borderRadius;
+    padding: 0 0.65em;
+    margin: .5em 0;
+    p{
+        margin-right: .5em;
+    }
+    input {
+        color: $white;
+        background-color: transparent;
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    .qty-input-label-container {
+        margin-left: auto;
+    }
+
+    .qty-input {
+        text-align: right;
+        width: 2em;
+        margin-right: .5em;
+        -moz-appearance: textfield;
+        border: 2px solid $accentColour;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+            border: none;
+        }
+    }
+}
+
+
+.checkbox-label-container {
+    display: flex;
+
+    .label-container {
+        margin-left: .5em;
+        max-width: 8rem;
+        overflow-x: scroll;
+
+        @include breakpoint(smallScreen) {
+            max-width: 16rem;
+        }
+        @include breakpoint(mediumScreen) {
+            max-width: 25rem;
+        }
+        .item-checked{
+            color: $grey;
+            text-decoration: line-through;
+        }
+    }
+
+    .checkbox-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.item-checkbox {
+    appearance: none;
+    background-color: #fff;
+    margin: 0;
+    font: inherit;
+    color: $accentColour;
+    width: 1.15em;
+    height: 1.15em;
+    border: 0.15em solid $accentColour;
+    border-radius: 0.15em;
+    transform: translateY(0.1em);
+    display: grid;
+    place-content: center;
+
+    &::before {
+        content: "";
+        width: 0.65em;
+        height: 0.65em;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset 1em 1em $accentColour;
+    }
+
+    &:checked::before {
+        transform: scale(1);
+    }
+}
+.remove-item-btn {
+    background-color: transparent;
+    border: none;
+    width: 1.6em;
+    height: 1.6em;
+    padding: 0;
+}

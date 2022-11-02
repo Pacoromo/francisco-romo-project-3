@@ -1,0 +1,24 @@
+// Styling  Guide
+
+//Color Reference
+
+$white: #FEFEFE;
+$grey: #5A5A5B;
+$greyDark: #2B2B2C;
+$brownDark: #19191A;
+$brownLight: #2B2B2C;
+$accentColour: #FFD600;
+
+//Fonts
+
+$baseFontSize: 1rem; //(20px)
+$minimumFontSize: .9rem; //(18px)
+
+$primaryFont: "Roboto", -apple-system, system-ui, sans-serif;
+$headingFont: "Pacifico", -apple-system, system-ui, sans-serif;
+
+
+//Miscellaneous
+
+$transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+$borderRadius: 6px;

@@ -1,0 +1,105 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+header {
+    h1 {
+        padding: 0.6em 0;
+    }
+
+    .mail-input,
+    .pin-input,
+    .name-input {
+        color: $white;
+        background-color: transparent;
+        border: 2px solid $white;
+        border-radius: $borderRadius;
+        margin: 0.7em 0;
+        padding: 0.2em 1em;
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+            border-color: $accentColour;
+        }
+    }
+
+    .mail-input,
+    .name-input {
+        width: 100%;
+        max-width: 20em;
+    }
+
+    .pin-input {
+        width: 7rem;
+        text-align: center;
+    }
+
+    .mail-group,
+    .pin-group {
+        position: relative;
+        text-align: center;
+    }
+
+    .mail-message,
+    .pin-message {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        top: -1.5em;
+        color: $accentColour;
+        font-size: 0.8rem;
+    }
+}
+
+.login-legend {
+    font-size: 0.8rem;
+    text-align: center;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.user-not-found-container {
+    // font-size: .8rem;
+    margin-top: 1em;
+    border: 2px solid $accentColour;
+    border-radius: $borderRadius;
+    text-align: center;
+    padding: 0 1em 1em;
+}
+
+.name-input {
+    width: 80%;
+}
+
+.new-user-btn {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    border-radius: $borderRadius;
+    background-color: $accentColour;
+    color: $brownDark;
+    padding: 0.4em 0.6em;
+
+    &:active {
+        color: $accentColour;
+        background-color: transparent;
+        border: 1px solid $accentColour;
+    }
+}
+
+.user-not-found-container {
+    p {
+        font-size: .8rem;
+        margin-bottom: 0;
+    }
+}
+
+h4 {
+    font-size: .9rem;
+    margin-top: 2em;
+}
+
+.disclaimer {
+    font-size: .7rem;
+}
