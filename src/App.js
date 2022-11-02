@@ -50,17 +50,13 @@ function App(props) {
       });
   }, []);
 
-  // //A function to pass down the node value from Header
-  // const setUser = (node) => {
-  //   setUserFoundNode(node);
-  // };
-
   return (
     <div className="App">
       <div className="wrapper">
         <Header users={allUsers} setUser={setUserFoundNode} setAllUsers={setAllUsers} setIntro={setShowIntro} />
         <Main node={userFoundNode} intro={showIntro} />
-        <Footer />
+          <Footer />
+
       </div>
     </div>
   );

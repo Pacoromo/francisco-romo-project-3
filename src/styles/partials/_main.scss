@@ -2,7 +2,6 @@
 
 main {
     flex: auto;
-
 }
 
 .intro-paragraph {
@@ -22,15 +21,62 @@ main {
     }
 }
 
-.form-container {
+.items-section {
+    h2 {
+        margin: 1em 0;
+    }
+}
+
+.new-item-form {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     text-align: center;
     padding: .5em;
-    h2{
+    background-color: $brownDark;
+    border-bottom: 1px solid $accentColour;
+
+    h2 {
         color: $accentColour;
     }
 
     p {
-        margin: .3em;
+        margin: .4em;
+    }
+
+    input {
+        color: $white;
+        background-color: transparent;
+        border: 2px solid $white;
+        border-radius: $borderRadius;
+        margin: 0.7em 0;
+        padding: 0.2em 1em;
+        width: 100%;
+        max-width: 20em;
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+            border-color: $accentColour;
+        }
+    }
+
+    .new-item-btn {
+        display: block;
+        margin: 0 auto;
+        border: none;
+        border-radius: $borderRadius;
+        background-color: $accentColour;
+        color: $brownDark;
+        padding: 0.4em 0.6em;
+
+        &:active {
+            color: $accentColour;
+            background-color: transparent;
+            border: 1px solid $accentColour;
+        }
     }
 }
-
+.items-list {
+    overflow: scroll;
+}

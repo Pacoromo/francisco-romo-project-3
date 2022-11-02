@@ -1,6 +1,9 @@
 @use "./variables" as *;
 
-footer {
+footer {    
+    position: sticky;
+    bottom: 0;
+    background-color: $brownDark;
     border-top: 1px solid $accentColour;
     p{
         text-align: center;

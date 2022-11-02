@@ -60,24 +60,27 @@ function ItemsList(props) {
 
     return (
         <section className="items-section">
-            <div className="form-container">
+            <div className="new-item-form">
                 <h2 className="items-list-heading">Hi {name}!</h2>
-                <p>This are your items:</p>
+                <p>Here's your shopping list</p>
                 <form action="submit" className="add-item-form">
-                    <label htmlFor="newItem">Add a new item to your list</label>
+                <div className="new-item-group">
+                    <label htmlFor="newItem" className="sr-only">Add a new item to your list</label>
                     <input
                         className="new-item-input"
                         type="text"
                         id="newItem"
                         onChange={handleInputChange}
                         value={newItemInput}
+                        placeholder="New item.."
                     />
+                </div>
                     <button
                         className="new-item-btn"
                         onClick={handleFormSubmit}
                         disabled={newItemInput === "" ? true : false}
                     >
-                        Add Item
+                        Add
                     </button>
                 </form>
             </div>
