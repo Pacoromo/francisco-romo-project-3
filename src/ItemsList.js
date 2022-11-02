@@ -4,10 +4,9 @@ import { getDatabase, onValue, ref, push } from "firebase/database";
 import ItemLi from "./ItemLi";
 
 function ItemsList(props) {
-    console.log("The ItemsList Component just rendered!");
     //This state will track the items from our db
     const [items, setItems] = useState([]);
-console.log("number", items);
+    
     //Track the user name from our dtabase
     const [name, setName] = useState("");
 

@@ -5,10 +5,8 @@ import Checkbox from "./Checkbox";
 import QtyInput from "./Qtyinput";
 
 function ItemLi(props) {
-    console.log("The ItemsLi Component just rendered!");
 
-    //This will remove the book from the list
-
+    //This will remove the item from the list
     const handleRemoveItem = (itemNode) => {
         const database = getDatabase(firebaseConfig);
         const databaseRef = ref(database, props.userNode + "/items/" + itemNode);
@@ -44,7 +42,7 @@ function ItemLi(props) {
                             onClick={() => {
                                 handleRemoveItem(key);
                             }}
-                        ><img src={closeLogo} alt="Multiply logo" /> </button>
+                        ><img src={closeLogo} alt="Multiplication symbol" /> </button>
                     </li>
                 );
             })}

@@ -3,7 +3,6 @@ import { getDatabase, push, ref, onValue } from "firebase/database";
 import { useState } from "react";
 
 function Header(props) {
-    console.log("The Header Component just rendered!");
 
     //Track form inputs
     const [userNameInput, setUserNameInput] = useState("");

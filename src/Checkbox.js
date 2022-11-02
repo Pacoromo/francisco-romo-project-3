@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { getDatabase, ref, update } from "firebase/database";
 
 function Checkbox(props) {
-    console.log("The Checkbox Component just rendered!");
 
     //Set the state of the item
     const [activeBox, setActiveBox] = useState(props.state);

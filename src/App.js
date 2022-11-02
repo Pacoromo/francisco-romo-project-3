@@ -8,8 +8,6 @@ import Main from "./Main";
 import Footer from "./Footer";
 
 function App(props) {
-  console.log("The App component just rendered!");
-
   //Set an array with all users
   const [allUsers, setAllUsers] = useState([]);
 
