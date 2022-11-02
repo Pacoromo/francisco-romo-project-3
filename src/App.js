@@ -16,6 +16,9 @@ function App(props) {
   //Build a variable to store the info once a user has been found and pass it down to main
   const [userFoundNode, setUserFoundNode] = useState("");
 
+  //A state to show introductory paragraph
+  const [showIntro, setShowIntro] = useState(true);
+
   useEffect(() => {
     //create a variable that will hold on to our database values
     const database = getDatabase(firebaseConfig);
@@ -47,16 +50,16 @@ function App(props) {
       });
   }, []);
 
-  //A function to pass down the node value from Header
-  const setUser = (node) => {
-    setUserFoundNode(node);
-  };
+  // //A function to pass down the node value from Header
+  // const setUser = (node) => {
+  //   setUserFoundNode(node);
+  // };
 
   return (
     <div className="App">
       <div className="wrapper">
-        <Header users={allUsers} setUser={setUser} setAllUsers={setAllUsers} />
-        <Main node={userFoundNode} />
+        <Header users={allUsers} setUser={setUserFoundNode} setAllUsers={setAllUsers} setIntro={setShowIntro} />
+        <Main node={userFoundNode} intro={showIntro} />
         <Footer />
       </div>
     </div>

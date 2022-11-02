@@ -21,10 +21,18 @@ function Header(props) {
     //Set a state variable to check if user exists
     const [userFound, setUserFound] = useState(false);
 
+    //pass the info to App.js
+    if (validPin && !userFound ) {
+        props.setIntro(false)
+    } else {
+        props.setIntro(true)
+    }
+
+
     //function that takes care of the name input logic
     const handleUserNameInput = (e) => {
         const inputValue = e.target.value.toLowerCase();
-        //Find matches in databbase
+        //Find matches in database
         const usersInArray = props.users.filter(
             (user) => user.email === inputValue
         );
@@ -90,7 +98,7 @@ function Header(props) {
         const databaseRef = ref(database);
         push(databaseRef, newUserObj);
 
-        //listen for new information from our database
+        //listen for the new information from our database only once
         onValue(
             databaseRef,
             (response) => {
@@ -128,78 +136,90 @@ function Header(props) {
 
     return (
         <header className="header">
-            <h1>My Shopping</h1>
-            <form className="user-info-form">
+            {userFound
+                ? null
+                : (
+                    <>
+                        <h1>Just Shopping</h1>
+                        <form className="user-info-form">
 
-                {validEmail || !userNameInput ? null : (
-                    <p className="mail-message">Please enter a valid email</p>
-                )}
-                <label htmlFor="mail-input" className="sr-only">
-                    email
-                </label>
-                <input
-                    className="mail-input"
-                    type="email"
-                    name="mail"
-                    id="mail-input"
-                    placeholder="email"
-                    onChange={handleUserNameInput}
-                    value={userNameInput}
-                />
+                            <div className="mail-group">
+                                {validEmail || !userNameInput ? null : (
+                                    <p className="mail-message">Please enter a valid email</p>
+                                )}
+                                <label htmlFor="mail-input" className="sr-only">
+                                    email
+                                </label>
+                                <input
+                                    className="mail-input"
+                                    type="email"
+                                    name="mail"
+                                    id="mail-input"
+                                    placeholder="email"
+                                    onChange={handleUserNameInput}
+                                    value={userNameInput}
+                                />
+                            </div>
 
-                <div className="pin-group">
-                    <label htmlFor="pin-input" className="sr-only">
-                        Personal Identification Number (4 digits)
-                    </label>
-                    <input
-                        className="pin-input"
-                        type="password"
-                        inputmode="numeric"
-                        name="pin"
-                        id="pin-input"
-                        placeholder="pin"
-                        onChange={handlePinInput}
-                        value={pinInput}
-                        disabled={userNameInput === "" || !validEmail ? true : false}
-                        maxLength="4"
-                    />
-                    {validPin || !pinInput ? null : (
-                        <p className="pin-message">Enter a 4 digit PIN</p>
-                    )}
-                    {userFound ? <div className="login-icon-container"><img className="login-icon" src="./assets/icons/checkmark.svg" alt="logged in icon" /></div> : null}
-                </div>
-            </form>
-
+                            <div className="pin-group">
+                                {validPin || !pinInput ? null : (
+                                    <p className="pin-message">Please enter a 4 digit number</p>
+                                )}
+                                <label htmlFor="pin-input" className="sr-only">
+                                    Personal Identification Number (4 digits)
+                                </label>
+                                <input
+                                    className="pin-input"
+                                    type="password"
+                                    inputmode="numeric"
+                                    name="pin"
+                                    id="pin-input"
+                                    placeholder="4 digit pin"
+                                    onChange={handlePinInput}
+                                    value={pinInput}
+                                    disabled={userNameInput === "" || !validEmail ? true : false}
+                                    maxLength="4"
+                                />
+                            </div>
+                        </form>
+                    </>
+                )
+            }
             {userFound ? null : (
                 <p className="login-legend">log in / New account</p>
             )}
 
             {validPin && !userFound ? (
                 <aside className="user-not-found-container">
-                    <p>User has not been found</p>
+                    <p>User has not been found!</p>
                     <p>Do you want to create a new user?</p>
-                    {validName || !nameInput ? null : (
-                        <p className="email-input-message">Please enter a Valid Name</p>
-                    )}
+
                     <form action="submit" className="new-user-form">
-                        <label htmlFor="name" className="sr-only">
-                            Name
-                        </label>
-                        <input
-                            className="new-user-input"
-                            type="text"
-                            name="name"
-                            id="name"
-                            placeholder="Name"
-                            onChange={handleNewUserInput}
-                            value={nameInput}
-                        />
-                        <button
-                            onClick={handleNewUserForm}
-                            disabled={nameInput === "" || !validName ? true : false}
-                        >
-                            Submit
-                        </button>
+                        <div className="name-group">
+                            {validName || !nameInput ? null : (
+                                <p className="name-message">Please enter a Valid Name</p>
+                            )}
+                            <label htmlFor="name" className="sr-only">                            Name
+                            </label>
+                            <input
+                                className="name-input"
+                                type="text"
+                                name="name"
+                                id="name"
+                                placeholder="Just tell us your name"
+                                onChange={handleNewUserInput}
+                                value={nameInput}
+                            />
+                            <button
+                            className="new-user-btn"
+                                onClick={handleNewUserForm}
+                                disabled={nameInput === "" || !validName ? true : false}
+                            >
+                                Submit
+                            </button>
+                            <h4 >We do not spam!</h4>
+                            <p className="disclaimer">We use your email only to locate your shopping list.</p>
+                        </div>
                     </form>
                 </aside>
             ) : null}

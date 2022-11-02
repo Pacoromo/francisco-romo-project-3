@@ -14,7 +14,7 @@ html {
 }
 
 body {
-    @include font-setup($primaryFont, $baseFontSize, 500, $white)
+    @include font-setup($primaryFont, $baseFontSize, 500, $white, 1.2)
 }
 
 h1 {
