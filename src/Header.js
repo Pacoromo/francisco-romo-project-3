@@ -90,7 +90,7 @@ function Header(props) {
         const newUserObj = {
             email: userNameInput.toLowerCase(),
             pin: pinInput,
-            name: nameInput,
+            name: nameInput.toLocaleLowerCase(),
         };
         //Push the information to firebase
         const database = getDatabase(firebaseConfig);
